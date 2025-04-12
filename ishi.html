@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For My Love Ishika ❤️</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #fff5f5;
+            color: #333;
+        }
+        .container {
+            max-width: 100%;
+            padding: 15px;
+        }
+        header {
+            text-align: center;
+            padding: 20px 0;
+            background-color: #ff6b6b;
+            color: white;
+            border-radius: 0 0 15px 15px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        h1 {
+            margin: 0;
+            font-size: 1.8rem;
+        }
+        .heart {
+            color: red;
+            font-size: 1.5rem;
+            animation: beat 1s infinite alternate;
+        }
+        @keyframes beat {
+            to { transform: scale(1.2); }
+        }
+        .section {
+            background: white;
+            border-radius: 15px;
+            padding: 15px;
+            margin: 15px 0;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        h2 {
+            color: #ff6b6b;
+            border-bottom: 2px solid #ffcccc;
+            padding-bottom: 5px;
+        }
+        textarea {
+            width: 100%;
+            height: 150px;
+            padding: 10px;
+            border: 2px solid #ffcccc;
+            border-radius: 10px;
+            resize: none;
+            font-size: 16px;
+        }
+        button {
+            background-color: #ff6b6b;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 10px;
+            transition: all 0.3s;
+        }
+        button:hover {
+            background-color: #ff5252;
+            transform: scale(1.05);
+        }
+        .notes-list {
+            margin-top: 15px;
+        }
+        .note {
+            background: #fff9f9;
+            border-left: 4px solid #ff6b6b;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 0 8px 8px 0;
+        }
+        .game-container {
+            text-align: center;
+        }
+        #game-board {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 5px;
+            margin: 15px auto;
+            width: 90%;
+            max-width: 300px;
+        }
+        .cell {
+            aspect-ratio: 1;
+            background: #ffebee;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 2rem;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        .cell:hover {
+            background: #ffcdd2;
+        }
+        #memory-game {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 5px;
+            margin: 15px auto;
+            width: 90%;
+            max-width: 300px;
+        }
+        .memory-card {
+            aspect-ratio: 1;
+            background: #ff6b6b;
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.5rem;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        .memory-card.flipped {
+            background: white;
+            color: #ff6b6b;
+        }
+        footer {
+            text-align: center;
+            padding: 15px;
+            color: #888;
+            font-size: 0.9rem;
+        }
+        .tab-buttons {
+            display: flex;
+            margin-bottom: 10px;
+        }
+        .tab-btn {
+            flex: 1;
+            background: #ffcccc;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+        }
+        .tab-btn.active {
+            background: #ff6b6b;
+            color: white;
+        }
+        .tab-content {
+            display: none;
+        }
+        .tab-content.active {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>For My Love Ishika <span class="heart">❤️</span></h1>
+        <p>You make my world brighter every day!</p>
+    </header>
+
+    <div class="container">
+        <div class="section">
+            <h2>Sweet Message</h2>
+            <p>Dear Ishika,</p>
+            <p>I created this little website just for you because you're so special to me. Here you can save your school notes and play some simple games when you need a break.</p>
+            <p>Remember that I love you more than words can say!</p>
+        </div>
+
+        <div class="section">
+            <div class="tab-buttons">
+                <button class="tab-btn active" onclick="openTab('notes')">Notes</button>
+                <button class="tab-btn" onclick="openTab('games')">Games</button>
+            </div>
+
+            <div id="notes" class="tab-content active">
+                <h2>Your Notes</h2>
+                <textarea id="new-note" placeholder="Type your notes here..."></textarea>
+                <button onclick="saveNote()">Save Note</button>
+                <div class="notes-list" id="notes-list"></div>
+            </div>
+
+            <div id="games" class="tab-content">
+                <h2>Fun Games</h2>
+                
+                <div class="game-container">
+                    <h3>Tic Tac Toe</h3>
+                    <div id="game-board">
+                        <div class="cell" onclick="makeMove(this, 0)"></div>
+                        <div class="cell" onclick="makeMove(this, 1)"></div>
+                        <div class="cell" onclick="makeMove(this, 2)"></div>
+                        <div class="cell" onclick="makeMove(this, 3)"></div>
+                        <div class="cell" onclick="makeMove(this, 4)"></div>
+                        <div class="cell" onclick="makeMove(this, 5)"></div>
+                        <div class="cell" onclick="makeMove(this, 6)"></div>
+                        <div class="cell" onclick="makeMove(this, 7)"></div>
+                        <div class="cell" onclick="makeMove(this, 8)"></div>
+                    </div>
+                    <button onclick="resetGame()">Reset Game</button>
+                </div>
+
+                <div class="game-container" style="margin-top: 30px;">
+                    <h3>Memory Game</h3>
+                    <div id="memory-game"></div>
+                    <button onclick="setupMemoryGame()">New Game</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        Made with love for Ishika ❤️
+    </footer>
+
+    <script>
+        // Notes functionality
+        function saveNote() {
+            const noteText = document.getElementById('new-note').value;
+            if (noteText.trim() === '') return;
+            
+            const note = {
+                id: Date.now(),
+                text: noteText,
+                date: new Date().toLocaleString()
+            };
+            
+            let notes = JSON.parse(localStorage.getItem('ishika-notes') || '[]');
+            notes.unshift(note);
+            localStorage.setItem('ishika-notes', JSON.stringify(notes));
+            
+            document.getElementById('new-note').value = '';
+            displayNotes();
+        }
+        
+        function displayNotes() {
+            const notesList = document.getElementById('notes-list');
+            notesList.innerHTML = '';
+            
+            const notes = JSON.parse(localStorage.getItem('ishika-notes') || '[]');
+            
+            if (notes.length === 0) {
+                notesList.innerHTML = '<p>No notes yet. Add your first note above!</p>';
+                return;
+            }
+            
+            notes.forEach(note => {
+                const noteElement = document.createElement('div');
+                noteElement.className = 'note';
+                noteElement.innerHTML = `
+                    <p>${note.text}</p>
+                    <small>${note.date}</small>
+                    <button onclick="deleteNote(${note.id})" style="float: right; padding: 3px 8px; font-size: 12px;">Delete</button>
+                `;
+                notesList.appendChild(noteElement);
+            });
+        }
+        
+        function deleteNote(id) {
+            let notes = JSON.parse(localStorage.getItem('ishika-notes') || '[]');
+            notes = notes.filter(note => note.id !== id);
+            localStorage.setItem('ishika-notes', JSON.stringify(notes));
+            displayNotes();
+        }
+        
+        // Tab functionality
+        function openTab(tabName) {
+            const tabContents = document.getElementsByClassName('tab-content');
+            for (let i = 0; i < tabContents.length; i++) {
+                tabContents[i].classList.remove('active');
+            }
+            
+            const tabButtons = document.getElementsByClassName('tab-btn');
+            for (let i = 0; i < tabButtons.length; i++) {
+                tabButtons[i].classList.remove('active');
+            }
+            
+            document.getElementById(tabName).classList.add('active');
+            event.currentTarget.classList.add('active');
+        }
+        
+        // Tic Tac Toe game
+        let currentPlayer = 'X';
+        let gameState = ['', '', '', '', '', '', '', '', ''];
+        
+        function makeMove(cell, index) {
+            if (gameState[index] !== '' || checkWinner()) return;
+            
+            gameState[index] = currentPlayer;
+            cell.textContent = currentPlayer;
+            
+            if (checkWinner()) {
+                setTimeout(() => alert(`${currentPlayer} wins!`), 100);
+                return;
+            }
+            
+            if (!gameState.includes('')) {
+                setTimeout(() => alert("It's a draw!"), 100);
+                return;
+            }
+            
+            currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
+        }
+        
+        function checkWinner() {
+            const winningConditions = [
+                [0, 1, 2], [3, 4, 5], [6, 7, 8], // rows
+                [0, 3, 6], [1, 4, 7], [2, 5, 8], // columns
+                [0, 4, 8], [2, 4, 6]             // diagonals
+            ];
+            
+            for (let condition of winningConditions) {
+                const [a, b, c] = condition;
+                if (gameState[a] && gameState[a] === gameState[b] && gameState[a] === gameState[c]) {
+                    return true;
+                }
+            }
+            return false;
+        }
+        
+        function resetGame() {
+            gameState = ['', '', '', '', '', '', '', '', ''];
+            currentPlayer = 'X';
+            document.querySelectorAll('#game-board .cell').forEach(cell => {
+                cell.textContent = '';
+            });
+        }
+        
+        // Memory Game
+        let memoryCards = [];
+        let flippedCards = [];
+        let matchedPairs = 0;
+        
+        function setupMemoryGame() {
+            const symbols = ['❤️', '🌟', '🌸', '🎈', '🍭', '🌈', '🐱', '🐶'];
+            memoryCards = [...symbols, ...symbols];
+            memoryCards = memoryCards.sort(() => Math.random() - 0.5);
+            
+            const memoryGame = document.getElementById('memory-game');
+            memoryGame.innerHTML = '';
+            flippedCards = [];
+            matchedPairs = 0;
+            
+            memoryCards.forEach((symbol, index) => {
+                const card = document.createElement('div');
+                card.className = 'memory-card';
+                card.dataset.index = index;
+                card.dataset.symbol = symbol;
+                card.addEventListener('click', flipCard);
+                memoryGame.appendChild(card);
+            });
+        }
+        
+        function flipCard() {
+            if (flippedCards.length >= 2 || this.classList.contains('flipped')) return;
+            
+            this.textContent = this.dataset.symbol;
+            this.classList.add('flipped');
+            flippedCards.push(this);
+            
+            if (flippedCards.length === 2) {
+                checkForMatch();
+            }
+        }
+        
+        function checkForMatch() {
+            const [card1, card2] = flippedCards;
+            
+            if (card1.dataset.symbol === card2.dataset.symbol) {
+                matchedPairs++;
+                flippedCards = [];
+                
+                if (matchedPairs === memoryCards.length / 2) {
+                    setTimeout(() => alert('Congratulations! You won!'), 500);
+                }
+            } else {
+                setTimeout(() => {
+                    card1.textContent = '';
+                    card2.textContent = '';
+                    card1.classList.remove('flipped');
+                    card2.classList.remove('flipped');
+                    flippedCards = [];
+                }, 1000);
+            }
+        }
+        
+        // Initialize
+        window.onload = function() {
+            displayNotes();
+            setupMemoryGame();
+        };
+    </script>
+</body>
+</html>
