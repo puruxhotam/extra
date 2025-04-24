@@ -7,13 +7,13 @@
     <style>
         * {
             box-sizing: border-box;
-            font-family: 'Arial', sans-serif;
+            font-family: 'Comic Sans MS', 'Arial Rounded MT Bold', sans-serif;
         }
         body {
             margin: 0;
             padding: 0;
-            background-color: #fff5f5;
-            color: #333;
+            background-color: #fff0f5;
+            color: #5a3d5a;
         }
         .container {
             max-width: 100%;
@@ -22,169 +22,403 @@
         header {
             text-align: center;
             padding: 20px 0;
-            background-color: #ff6b6b;
+            background: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 100%);
             color: white;
-            border-radius: 0 0 15px 15px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            border-radius: 0 0 25px 25px;
+            box-shadow: 0 4px 15px rgba(255, 105, 140, 0.3);
+            position: relative;
+            overflow: hidden;
         }
         h1 {
             margin: 0;
-            font-size: 1.8rem;
+            font-size: 2rem;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
         }
         .heart {
-            color: red;
-            font-size: 1.5rem;
-            animation: beat 1s infinite alternate;
+            color: #ff1493;
+            font-size: 1.8rem;
+            animation: beat 0.8s infinite alternate, float 3s ease-in-out infinite;
+            display: inline-block;
         }
         @keyframes beat {
-            to { transform: scale(1.2); }
+            to { transform: scale(1.3); }
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
         }
         .section {
             background: white;
-            border-radius: 15px;
-            padding: 15px;
-            margin: 15px 0;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            border-radius: 20px;
+            padding: 20px;
+            margin: 20px 0;
+            box-shadow: 0 5px 15px rgba(255, 105, 140, 0.1);
+            border: 1px solid #ffd6e7;
         }
         h2 {
-            color: #ff6b6b;
-            border-bottom: 2px solid #ffcccc;
-            padding-bottom: 5px;
+            color: #ff6b8b;
+            border-bottom: 2px dotted #ffb6c1;
+            padding-bottom: 8px;
+            font-size: 1.5rem;
         }
         textarea {
             width: 100%;
             height: 150px;
-            padding: 10px;
-            border: 2px solid #ffcccc;
-            border-radius: 10px;
+            padding: 15px;
+            border: 2px dashed #ffb6c1;
+            border-radius: 15px;
             resize: none;
             font-size: 16px;
-        }
-        button {
-            background-color: #ff6b6b;
-            color: white;
-            border: none;
-            padding: 8px 15px;
-            border-radius: 20px;
-            cursor: pointer;
-            font-size: 16px;
-            margin-top: 10px;
+            background-color: #fffafb;
             transition: all 0.3s;
         }
+        textarea:focus {
+            border: 2px solid #ff6b8b;
+            outline: none;
+            box-shadow: 0 0 10px rgba(255, 107, 139, 0.2);
+        }
+        button {
+            background: linear-gradient(135deg, #ff6b8b 0%, #ff8e9e 100%);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 15px;
+            transition: all 0.3s;
+            box-shadow: 0 4px 8px rgba(255, 107, 139, 0.3);
+            font-weight: bold;
+        }
         button:hover {
-            background-color: #ff5252;
-            transform: scale(1.05);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(255, 107, 139, 0.4);
+        }
+        button:active {
+            transform: translateY(1px);
         }
         .notes-list {
-            margin-top: 15px;
+            margin-top: 20px;
         }
         .note {
-            background: #fff9f9;
-            border-left: 4px solid #ff6b6b;
-            padding: 10px;
-            margin: 10px 0;
-            border-radius: 0 8px 8px 0;
+            background: #fff9fa;
+            border-left: 5px solid #ff6b8b;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 15px 15px 0;
+            position: relative;
+            transition: all 0.3s;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+        .note:hover {
+            transform: translateX(5px);
+            box-shadow: 0 5px 10px rgba(255, 107, 139, 0.1);
         }
         .game-container {
             text-align: center;
+            padding: 15px;
+            background-color: #fff9fa;
+            border-radius: 15px;
+            margin-bottom: 25px;
+            border: 1px solid #ffd6e7;
         }
         #game-board {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 5px;
-            margin: 15px auto;
+            gap: 8px;
+            margin: 20px auto;
             width: 90%;
             max-width: 300px;
         }
         .cell {
             aspect-ratio: 1;
-            background: #ffebee;
+            background: #ffebf1;
             display: flex;
             justify-content: center;
             align-items: center;
-            font-size: 2rem;
+            font-size: 2.5rem;
             cursor: pointer;
-            border-radius: 5px;
+            border-radius: 10px;
+            transition: all 0.3s;
+            color: #ff6b8b;
         }
         .cell:hover {
-            background: #ffcdd2;
+            background: #ffd6e7;
+            transform: scale(0.95);
         }
         #memory-game {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
-            gap: 5px;
-            margin: 15px auto;
+            gap: 8px;
+            margin: 20px auto;
             width: 90%;
             max-width: 300px;
         }
         .memory-card {
             aspect-ratio: 1;
-            background: #ff6b6b;
+            background: linear-gradient(135deg, #ff6b8b 0%, #ff8e9e 100%);
             color: white;
             display: flex;
             justify-content: center;
             align-items: center;
-            font-size: 1.5rem;
+            font-size: 1.8rem;
             cursor: pointer;
-            border-radius: 5px;
+            border-radius: 10px;
+            transition: all 0.3s;
+            box-shadow: 0 4px 8px rgba(255, 107, 139, 0.2);
         }
         .memory-card.flipped {
             background: white;
-            color: #ff6b6b;
+            color: #ff6b8b;
+            transform: rotateY(180deg);
         }
         footer {
             text-align: center;
-            padding: 15px;
-            color: #888;
+            padding: 20px;
+            color: #ff6b8b;
             font-size: 0.9rem;
         }
         .tab-buttons {
             display: flex;
-            margin-bottom: 10px;
+            margin-bottom: 15px;
+            background: #fff0f5;
+            border-radius: 25px;
+            padding: 5px;
+            box-shadow: inset 0 0 10px rgba(255, 107, 139, 0.1);
         }
         .tab-btn {
             flex: 1;
-            background: #ffcccc;
+            background: transparent;
             border: none;
-            padding: 10px;
+            padding: 12px;
             cursor: pointer;
+            font-weight: bold;
+            color: #ff6b8b;
+            border-radius: 20px;
+            transition: all 0.3s;
         }
         .tab-btn.active {
-            background: #ff6b6b;
+            background: linear-gradient(135deg, #ff6b8b 0%, #ff8e9e 100%);
             color: white;
+            box-shadow: 0 4px 8px rgba(255, 107, 139, 0.3);
         }
         .tab-content {
             display: none;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
         .tab-content.active {
             display: block;
         }
+        .sticker {
+            position: absolute;
+            font-size: 1.2rem;
+            animation: float 4s ease-in-out infinite;
+            opacity: 0.8;
+        }
+        .sticker:nth-child(1) {
+            top: 10px;
+            left: 10px;
+            animation-delay: 0s;
+        }
+        .sticker:nth-child(2) {
+            top: 10px;
+            right: 10px;
+            animation-delay: 0.5s;
+        }
+        .sticker:nth-child(3) {
+            bottom: 10px;
+            left: 15px;
+            animation-delay: 1s;
+        }
+        .sticker:nth-child(4) {
+            bottom: 10px;
+            right: 15px;
+            animation-delay: 1.5s;
+        }
+        .love-meter {
+            width: 100%;
+            height: 30px;
+            background: #ffebf1;
+            border-radius: 15px;
+            margin: 15px 0;
+            overflow: hidden;
+        }
+        .love-fill {
+            height: 100%;
+            width: 100%;
+            background: linear-gradient(90deg, #ff6b8b 0%, #ff1493 100%);
+            border-radius: 15px;
+            transition: width 0.5s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 14px;
+            font-weight: bold;
+        }
+        .quote-container {
+            background: white;
+            border-radius: 15px;
+            padding: 15px;
+            margin: 15px 0;
+            text-align: center;
+            border: 1px solid #ffd6e7;
+            box-shadow: 0 5px 15px rgba(255, 107, 139, 0.1);
+        }
+        .quote {
+            font-style: italic;
+            color: #5a3d5a;
+            margin-bottom: 10px;
+        }
+        .author {
+            font-weight: bold;
+            color: #ff6b8b;
+        }
+        .photo-frame {
+            width: 150px;
+            height: 150px;
+            margin: 0 auto;
+            background: #ffebf1;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 5px solid white;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        .photo-frame img {
+            max-width: 100%;
+            max-height: 100%;
+        }
+        .floating-hearts {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+        .heart-emoji {
+            position: absolute;
+            font-size: 20px;
+            animation: float-up 5s linear infinite;
+            opacity: 0;
+        }
+        @keyframes float-up {
+            0% {
+                transform: translateY(100vh) scale(0);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-20vh) scale(1.5);
+                opacity: 0;
+            }
+        }
+        .secret-message {
+            text-align: center;
+            margin: 20px 0;
+        }
+        .secret-btn {
+            background: transparent;
+            border: 2px dashed #ff6b8b;
+            color: #ff6b8b;
+            padding: 8px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .secret-btn:hover {
+            background: rgba(255, 107, 139, 0.1);
+        }
+        .hidden {
+            display: none;
+        }
+        .music-player {
+            background: white;
+            border-radius: 15px;
+            padding: 15px;
+            margin: 15px 0;
+            text-align: center;
+            border: 1px solid #ffd6e7;
+        }
+        .music-controls {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 10px;
+        }
+        .music-btn {
+            background: #ffebf1;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .music-btn:hover {
+            background: #ffd6e7;
+            transform: scale(1.1);
+        }
     </style>
 </head>
 <body>
+    <div class="floating-hearts" id="hearts-container"></div>
+
     <header>
-        <h1>For My Love Ishika <span class="heart">❤️</span></h1>
-        <p>You make my world brighter every day!</p>
+        <div class="sticker">🌸</div>
+        <div class="sticker">🌟</div>
+        <div class="sticker">💖</div>
+        <div class="sticker">🎀</div>
+        <h1>For My Beautiful Ishika <span class="heart">❤️</span></h1>
+        <p>You're the sunshine in my life!</p>
     </header>
 
     <div class="container">
         <div class="section">
-            <h2>Sweet Message</h2>
-            <p>Dear Ishika,</p>
-            <p>I created this little website just for you because you're so special to me. Here you can save your school notes and play some simple games when you need a break.</p>
-            <p>Remember that I love you more than words can say!</p>
+            <h2>My Love For You</h2>
+            <div class="love-meter">
+                <div class="love-fill" id="love-fill">100% LOVE</div>
+            </div>
+            <p>No matter what, my love for you will always be at maximum!</p>
+            
+            <div class="photo-frame">
+                <!-- Replace with your actual image path -->
+                <img src="https://placehold.co/150x150/pink/white?text=❤️+Ishika" alt="Ishika">
+            </div>
+            
+            <div class="secret-message">
+                <button class="secret-btn" onclick="showSecretMessage()">Click for a secret message</button>
+                <p id="secret-text" class="hidden">I fall in love with you more every single day! 💕</p>
+            </div>
         </div>
 
         <div class="section">
             <div class="tab-buttons">
-                <button class="tab-btn active" onclick="openTab('notes')">Notes</button>
-                <button class="tab-btn" onclick="openTab('games')">Games</button>
+                <button class="tab-btn active" onclick="openTab('notes')">📝 Notes</button>
+                <button class="tab-btn" onclick="openTab('games')">🎮 Games</button>
+                <button class="tab-btn" onclick="openTab('extras')">✨ Extras</button>
             </div>
 
             <div id="notes" class="tab-content active">
                 <h2>Your Notes</h2>
-                <textarea id="new-note" placeholder="Type your notes here..."></textarea>
-                <button onclick="saveNote()">Save Note</button>
+                <textarea id="new-note" placeholder="Type your school notes here... ✏️"></textarea>
+                <button onclick="saveNote()">💾 Save Note</button>
                 <div class="notes-list" id="notes-list"></div>
             </div>
 
@@ -192,7 +426,7 @@
                 <h2>Fun Games</h2>
                 
                 <div class="game-container">
-                    <h3>Tic Tac Toe</h3>
+                    <h3>⭕ Tic Tac Toe ❌</h3>
                     <div id="game-board">
                         <div class="cell" onclick="makeMove(this, 0)"></div>
                         <div class="cell" onclick="makeMove(this, 1)"></div>
@@ -204,23 +438,66 @@
                         <div class="cell" onclick="makeMove(this, 7)"></div>
                         <div class="cell" onclick="makeMove(this, 8)"></div>
                     </div>
-                    <button onclick="resetGame()">Reset Game</button>
+                    <button onclick="resetGame()">🔄 Reset Game</button>
                 </div>
 
-                <div class="game-container" style="margin-top: 30px;">
-                    <h3>Memory Game</h3>
+                <div class="game-container">
+                    <h3>🧠 Memory Game</h3>
                     <div id="memory-game"></div>
-                    <button onclick="setupMemoryGame()">New Game</button>
+                    <button onclick="setupMemoryGame()">🃏 New Game</button>
                 </div>
+            </div>
+
+            <div id="extras" class="tab-content">
+                <h2>Special Extras</h2>
+                
+                <div class="quote-container">
+                    <p class="quote" id="daily-quote">"You're the most amazing girlfriend in the world!"</p>
+                    <p class="author">- Your Loving Boyfriend</p>
+                    <button onclick="newQuote()">💬 New Quote</button>
+                </div>
+                
+                <div class="music-player">
+                    <h3>🎵 Our Song</h3>
+                    <audio id="bg-music" loop>
+                        <!-- Replace with your actual music file -->
+                        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+                    </audio>
+                    <div class="music-controls">
+                        <button class="music-btn" onclick="playMusic()">▶️</button>
+                        <button class="music-btn" onclick="pauseMusic()">⏸️</button>
+                        <button class="music-btn" onclick="stopMusic()">⏹️</button>
+                    </div>
+                </div>
+                
+                <button onclick="createHearts()" style="width: 100%;">💖 Create Floating Hearts</button>
             </div>
         </div>
     </div>
 
     <footer>
-        Made with love for Ishika ❤️
+        Made with endless love for Ishika ❤️<br>
+        <small>Tap anywhere for hearts!</small>
     </footer>
 
     <script>
+        // Floating hearts effect
+        function createHearts() {
+            const container = document.getElementById('hearts-container');
+            const heart = document.createElement('div');
+            heart.className = 'heart-emoji';
+            heart.innerHTML = ['❤️', '💖', '💕', '💗', '💓'][Math.floor(Math.random() * 5)];
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDuration = Math.random() * 3 + 3 + 's';
+            container.appendChild(heart);
+            
+            setTimeout(() => {
+                heart.remove();
+            }, 5000);
+        }
+        
+        document.addEventListener('click', createHearts);
+        
         // Notes functionality
         function saveNote() {
             const noteText = document.getElementById('new-note').value;
@@ -238,6 +515,11 @@
             
             document.getElementById('new-note').value = '';
             displayNotes();
+            
+            // Celebration effect
+            for (let i = 0; i < 10; i++) {
+                setTimeout(createHearts, i * 100);
+            }
         }
         
         function displayNotes() {
@@ -247,7 +529,7 @@
             const notes = JSON.parse(localStorage.getItem('ishika-notes') || '[]');
             
             if (notes.length === 0) {
-                notesList.innerHTML = '<p>No notes yet. Add your first note above!</p>';
+                notesList.innerHTML = '<p>No notes yet. Add your first note above! ✨</p>';
                 return;
             }
             
@@ -257,7 +539,7 @@
                 noteElement.innerHTML = `
                     <p>${note.text}</p>
                     <small>${note.date}</small>
-                    <button onclick="deleteNote(${note.id})" style="float: right; padding: 3px 8px; font-size: 12px;">Delete</button>
+                    <button onclick="deleteNote(${note.id})" style="float: right; padding: 5px 10px; font-size: 12px;">🗑️ Delete</button>
                 `;
                 notesList.appendChild(noteElement);
             });
@@ -284,6 +566,10 @@
             
             document.getElementById(tabName).classList.add('active');
             event.currentTarget.classList.add('active');
+            
+            if (tabName === 'games') {
+                setupMemoryGame();
+            }
         }
         
         // Tic Tac Toe game
@@ -295,14 +581,20 @@
             
             gameState[index] = currentPlayer;
             cell.textContent = currentPlayer;
+            cell.style.color = currentPlayer === 'X' ? '#ff6b8b' : '#ff1493';
             
             if (checkWinner()) {
-                setTimeout(() => alert(`${currentPlayer} wins!`), 100);
+                setTimeout(() => {
+                    alert(`${currentPlayer} wins! 🎉`);
+                    for (let i = 0; i < 20; i++) {
+                        setTimeout(createHearts, i * 100);
+                    }
+                }, 100);
                 return;
             }
             
             if (!gameState.includes('')) {
-                setTimeout(() => alert("It's a draw!"), 100);
+                setTimeout(() => alert("It's a draw! 🤝"), 100);
                 return;
             }
             
@@ -339,7 +631,7 @@
         let matchedPairs = 0;
         
         function setupMemoryGame() {
-            const symbols = ['❤️', '🌟', '🌸', '🎈', '🍭', '🌈', '🐱', '🐶'];
+            const symbols = ['❤️', '🌸', '🌟', '🎈', '🍭', '🌈', '🐱', '🐶'];
             memoryCards = [...symbols, ...symbols];
             memoryCards = memoryCards.sort(() => Math.random() - 0.5);
             
@@ -378,7 +670,12 @@
                 flippedCards = [];
                 
                 if (matchedPairs === memoryCards.length / 2) {
-                    setTimeout(() => alert('Congratulations! You won!'), 500);
+                    setTimeout(() => {
+                        alert('Congratulations! You won! 🏆');
+                        for (let i = 0; i < 30; i++) {
+                            setTimeout(createHearts, i * 100);
+                        }
+                    }, 500);
                 }
             } else {
                 setTimeout(() => {
@@ -391,10 +688,60 @@
             }
         }
         
+        // Secret message
+        function showSecretMessage() {
+            const secret = document.getElementById('secret-text');
+            secret.classList.toggle('hidden');
+            
+            if (!secret.classList.contains('hidden')) {
+                for (let i = 0; i < 15; i++) {
+                    setTimeout(createHearts, i * 100);
+                }
+            }
+        }
+        
+        // Quotes
+        const quotes = [
+            {text: "You're the most amazing girlfriend in the world!", author: "Your Loving Boyfriend"},
+            {text: "Every moment with you is special and beautiful.", author: "Your Loving Boyfriend"},
+            {text: "Your smile brightens my darkest days.", author: "Your Loving Boyfriend"},
+            {text: "I fall in love with you more every single day.", author: "Your Loving Boyfriend"},
+            {text: "You're my favorite notification.", author: "Your Loving Boyfriend"},
+            {text: "Life with you is like a beautiful dream.", author: "Your Loving Boyfriend"}
+        ];
+        
+        function newQuote() {
+            const randomQuote = quotes[Math.floor(Math.random() * quotes.length)];
+            document.getElementById('daily-quote').textContent = `"${randomQuote.text}"`;
+            document.querySelector('.author').textContent = `- ${randomQuote.author}`;
+        }
+        
+        // Music player
+        const music = document.getElementById('bg-music');
+        
+        function playMusic() {
+            music.play();
+        }
+        
+        function pauseMusic() {
+            music.pause();
+        }
+        
+        function stopMusic() {
+            music.pause();
+            music.currentTime = 0;
+        }
+        
         // Initialize
         window.onload = function() {
             displayNotes();
             setupMemoryGame();
+            createHearts();
+            
+            // Create initial floating hearts
+            for (let i = 0; i < 20; i++) {
+                setTimeout(createHearts, i * 300);
+            }
         };
     </script>
 </body>
